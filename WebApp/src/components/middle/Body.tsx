@@ -1,27 +1,18 @@
-import YouTubePlayer from './YouTubePlayer';
-import Text from '../../stylizedComponents/Text';
-import useDate from '../../hooks/use-date';
-import useYoutube from '../../hooks/use-youtube';
+// import YouTubePlayer from './YouTubePlayer';
+// import useYoutube from '../../hooks/use-youtube';
 
 const Body = () => {
-    const { currentDate, currentTime } = useDate();
-    const { youTubeLink } = useYoutube();
+    // const { youTubeLink } = useYoutube();
 
     return (
         <div className="flex flex-row place-content-center h-2/4 w-full">
-            <div className="h-full w-1/2 bg-blue-900 flex flex-col justify-center text-center rounded-l-md">
-                <Text
-                    classNameProps="text-4xl font-bold"
-                    content={currentDate}
-                />
-                <Text
-                    classNameProps="text-4xl font-bold"
-                    content={currentTime}
-                />
+            <div className="h-full w-1/3 bg-sky-500 flex flex-col justify-center text-center rounded-l-md">
             </div>
-            <div className="h-full w-1/2 bg-blue-900">
-                <YouTubePlayer videoId={youTubeLink} />
+            <div className="h-full w-1/3 bg-sky-900">
+                {/* <YouTubePlayer videoId={youTubeLink} /> */}
+                
             </div>
+            <div className="h-full w-1/3 bg-yellow-400"></div>
         </div>
     );
 };
