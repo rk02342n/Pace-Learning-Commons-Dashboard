@@ -24,9 +24,6 @@ const Header = ({
                 <h1 className="relative object-contain right font-mono">{currentTime}</h1>
             </div>
         </div>
-        
-       
-            
             <br/>
             {weather_banner &&
                 location &&

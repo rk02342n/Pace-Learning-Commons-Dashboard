@@ -1,6 +1,6 @@
 import Header from '../components/header/Header';
 import Body from '../components/middle/Body';
-import TradingViewTickerTape from '../components/stockticker/TradingViewTickerTape';
+import TradingViewWidget from '../components/stockticker/TradingViewTickerTape';
 import { lc_coordinates, lc_locations } from '../consts/consts';
 
 const Home_nyc = () => {
@@ -14,7 +14,7 @@ const Home_nyc = () => {
             <br />
             <br />
             <br />
-            <TradingViewTickerTape />
+            <TradingViewWidget />
         </div>
     );
 };
