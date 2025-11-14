@@ -28,9 +28,12 @@
         ]
     },
     "dependencies": {
+        "@daniel-szulc/react-weather-widget": "^1.1.1",
+        "axios": "0.27",
         "eslint-plugin-jsx-a11y": "^6.8.0",
         "eslint-plugin-react": "^7.34.1",
         "eslint-plugin-tsdoc": "^0.2.17",
+        "lucide-react": "^0.553.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-scripts": "^5.0.1"
