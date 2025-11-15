@@ -6,6 +6,8 @@ const NYTimesWidget = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const section = 'home';
+  const [index, setIndex] = useState(0); // current 3 articles to be shown
+  const [fade, setFade] = useState(true);
 
   const API_KEY = 'uRkKDxfRsIqju3kNduTQlA4TOb6mLKFj'; // Demo key - replace with your own
 
@@ -34,6 +36,18 @@ const NYTimesWidget = () => {
   useEffect(() => {
     fetchNews(section);
   }, [section]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % Math.ceil(articles.length / 3));
+        setFade(true);
+      }, 300);
+    }, 5000); // change every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [articles]);
 
   const handleRefresh = () => {
     fetchNews(section);
@@ -66,6 +80,10 @@ const NYTimesWidget = () => {
     );
   }
 
+  const start = index * 3;
+  const visibleArticles = articles.slice(start, start + 3);
+
+
   return (
     <div className="max-h-full max-w-full opaque-0 p-6 rounded-xl overflow-auto">
       <div className="max-w-full mx-auto">
@@ -86,8 +104,8 @@ const NYTimesWidget = () => {
         </div>
 
         {/* Articles Grid */}
-        <div className="space-y-2 font-serif overflow-auto">
-          {articles.slice(0,6).map((article, index) => (
+        <div className={`space-y-2 font-serif overflow-auto transition-all duration-500 transform ${fade ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}>
+        {visibleArticles.map((article, index) => (
             <div
               key={index}
               className=" backdrop-blur-lg rounded-2xl p-2 hover:bg-purple-200 transition cursor-pointer"
