@@ -7,7 +7,7 @@ const WeatherWidget = () => {
   const [error, setError] = useState(null);
   const [city, setCity] = useState('new york');
 
-  const API_KEY = 'bd5e378503939ddaee76f12ad7a97608'; // Change to free tier API key from Open Weather
+  const API_KEY = '5078fa80b4312225bca0d2f15260246f'; // Change to free tier API key from Open Weather
 
   const fetchWeather = async (cityName) => {
     try {
@@ -81,7 +81,7 @@ const WeatherWidget = () => {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-400 to-red-600">
+      <div className="flex items-center justify-center min-h-full bg-gradient-to-br from-red-400 to-red-600">
         <div className="bg-white bg-opacity-20 backdrop-blur-lg rounded-3xl p-8 shadow-2xl text-white text-center max-w-md">
           <h2 className="text-2xl font-bold mb-4">Error</h2>
           <p className="mb-6">{error}</p>
