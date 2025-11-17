@@ -6,7 +6,7 @@ const Home_nyc = () => {
     return (
         <div className="h-screen bg-white p-2">
             <Header />
-            <Body />
+            <Body location={'new york'}/>
             <br />
             <br />
             <br />

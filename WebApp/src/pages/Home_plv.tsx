@@ -6,7 +6,7 @@ const Home_plv = () => {
     return (
         <div className="h-screen bg-white p-2">
             <Header />
-            <Body />
+            <Body location='pleasantville'/>
             <br />
             <br />
             <br />

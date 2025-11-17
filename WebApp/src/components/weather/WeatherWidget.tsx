@@ -1,15 +1,34 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Cloud, CloudRain, CloudSnow, Sun } from 'lucide-react';
 
-const WeatherWidget = () => {
-  const [weather, setWeather] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [city, setCity] = useState('new york');
+interface WeatherWidgetProps {
+  location: string;
+}
+
+interface WeatherData {
+  name: string;
+  sys: {
+    country: string;
+  };
+  main: {
+    temp: number;
+    feels_like: number;
+  };
+  weather: {
+    main: string;
+    description: string;
+  }[];
+}
+
+const WeatherWidget: React.FC<WeatherWidgetProps> = ({ location }: WeatherWidgetProps) => {
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [city, setCity] = useState<string>(location);
 
   const API_KEY = '5078fa80b4312225bca0d2f15260246f'; // Change to free tier API key from Open Weather
 
-  const fetchWeather = async (cityName) => {
+  const fetchWeather = async (cityName: string): Promise<void> => {
     try {
       setLoading(true);
       setError(null);
@@ -22,12 +41,16 @@ const WeatherWidget = () => {
         throw new Error('City not found');
       }
       
-      const data = await response.json();
+      const data: WeatherData = await response.json();
       setWeather(data);
       setCity(cityName);
 
-    } catch (err) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred");
+      }
     } finally {
       setLoading(false);
     }
@@ -35,9 +58,9 @@ const WeatherWidget = () => {
 
   useEffect(() => {
     fetchWeather(city);
-  }, []);
+  }, [city]);
 
-  const getWeatherIcon = (weatherMain) => {
+  const getWeatherIcon = (weatherMain?: string) => {
     switch (weatherMain?.toLowerCase()) {
       case 'clear':
         return <Sun className="w-16 h-16 text-yellow-400" />;
@@ -53,7 +76,7 @@ const WeatherWidget = () => {
     }
   };
 
-  const getBackgroundGradient = (weatherMain) => {
+  const getBackgroundGradient = (weatherMain?: string): string => {
     switch (weatherMain?.toLowerCase()) {
       case 'clear':
         return 'from-blue-400 to-blue-600';
@@ -79,7 +102,7 @@ const WeatherWidget = () => {
     );
   }
 
-  if (error) {
+  if (error || !weather) {
     return (
       <div className="flex items-center justify-center min-h-full bg-gradient-to-br from-red-400 to-red-600">
         <div className="bg-white bg-opacity-20 backdrop-blur-lg rounded-3xl p-8 shadow-2xl text-white text-center max-w-md">
