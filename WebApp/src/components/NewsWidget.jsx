@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Newspaper, RefreshCw } from 'lucide-react';
+import { Newspaper } from 'lucide-react';
 
 const NYTimesWidget = () => {
   const [articles, setArticles] = useState([]);
@@ -41,10 +41,10 @@ const NYTimesWidget = () => {
     const interval = setInterval(() => {
       setFade(false);
       setTimeout(() => {
-        setIndex((prev) => (prev + 1) % Math.ceil(articles.length / 3));
+        setIndex((prev) => (prev + 1) % Math.ceil(articles.length));
         setFade(true);
       }, 300);
-    }, 5000); // change every 5 seconds
+    }, 4000); // change every 4 seconds
 
     return () => clearInterval(interval);
   }, [articles]);
@@ -55,7 +55,7 @@ const NYTimesWidget = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-full bg-gradient-to-br from-gray-900 to-gray-800">
+      <div className="flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800">
         <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl">
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div>
         </div>
@@ -65,7 +65,7 @@ const NYTimesWidget = () => {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-full bg-gradient-to-br from-red-900 to-red-800">
+      <div className="flex items-center justify-center bg-gradient-to-br from-red-900 to-red-800">
         <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl text-white text-center max-w-md">
           <h2 className="text-2xl font-bold mb-4">Error</h2>
           <p className="mb-6">{error}</p>
@@ -80,70 +80,47 @@ const NYTimesWidget = () => {
     );
   }
 
-  const start = index * 3;
-  const visibleArticles = articles.slice(start, start + 3);
+  const start = index;
+  const visibleArticles = articles.slice(start, start + 1);
 
 
   return (
-    <div className="max-h-full max-w-full opaque-0 p-6 rounded-xl overflow-auto">
-      <div className="max-w-full mx-auto">
+    <div className="flex flex-row max-h-full max-w-full justify-start opaque-0 rounded-xl overflow-auto mt-2">
+      <div className="flex flex-row w-full mx-auto justify-start gap-4">
         {/* Header */}
-        <div className=" rounded-xl mb-2 sticky">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Newspaper className="w-8 h-4 text-black ml-4" />
-              <h1 className=" animate-pulse text-xl font-bold font-serif text-black p-3">News</h1>
+        <div className=" flex rounded-xl sticky items-center justify-end">
+          <div className="flex items-end justify-end">
+            <div className="flex items-end">
+              <Newspaper className="w-16 h-16 text-black ml-4 gap-30" />
             </div>
-            <button
-              onClick={handleRefresh}
-              className="bg-white text-black p-2 mr-2 rounded-full hover:bg-slate-200 transition"
-            >
-              <RefreshCw className="w-3 h-3" />
-            </button>
           </div>
         </div>
 
         {/* Articles Grid */}
-        <div className={`space-y-2 font-serif overflow-auto transition-all duration-500 transform ${fade ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}>
+        <div className={`w-full space-y-2 flex flex-row font-serif overflow-auto transition-all duration-500 transform ${fade ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}>
         {visibleArticles.map((article, index) => (
             <div
               key={index}
-              className=" backdrop-blur-lg rounded-2xl p-2 hover:bg-purple-200 transition cursor-pointer"
+              className="w-full backdrop-blur-lg rounded-2xl p-2 hover:bg-purple-200 transition cursor-pointer min-w-screen"
             >
-              <div className="flex gap-4">
-                {/* Article Image */}
-                {article.multimedia && article.multimedia[0] && (
-                  <div className="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-gray-700">
-                    <img
-                      src={article.multimedia[0].url}
-                      alt={article.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-
+              <div className="flex gap-4 justify-center">
                 {/* Article Content */}
-                <div className="flex-1 min-w-0">
+                <div className="w-full mt-2">
                   
                   {/* Title */}
-                  <h2 className="text-md font-bold text-black mb-2 line-clamp-2">
+                  <h2 className="text-md font-bold text-black mb-2">
                     {article.title}
                   </h2>
 
                   {/* Abstract */}
-                  {/* <p className="text-gray-800 text-sm mb-3 line-clamp-2">
+                  <p className="text-gray-800 text-sm mb-3 line-clamp-2">
                     {article.abstract}
-                  </p> */}
+                  </p>
 
                 </div>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Footer */}
-        <div className="mt-8 text-center text-gray-400 text-sm">
-          <p>Powered by The New York Times API</p>
         </div>
       </div>
     </div>

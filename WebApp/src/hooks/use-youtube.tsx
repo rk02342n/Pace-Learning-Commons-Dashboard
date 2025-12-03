@@ -2,8 +2,12 @@ import { useEffect, useState } from 'react';
 
 const useYoutube = () => {
     const url = process.env.REACT_APP_YOUTUBE_LINK;
-    // const [youTubeLink, setYouTubeLink] = useState('DHUnz4dyb54');
-    const [youTubeLink, setYouTubeLink] = useState('IwYx9hKWoGw');
+    const youtubeVideos = [ 
+        {id: 'EF8C4v7JIbA', title: 'nat geo blue planet'},
+        {id: 'IwYx9hKWoGw', title: '3d printer'},
+        {id : 'DHUnz4dyb54', title: 'tropical reef'}]
+
+    const [youTubeLink, setYouTubeLink] = useState(youtubeVideos[0].id);
 
     const changeYouTubeLink = (link: string) => {
         const regex = /(?:v=)([^&]+)/;

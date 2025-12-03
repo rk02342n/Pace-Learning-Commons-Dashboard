@@ -120,28 +120,27 @@ const WeatherWidget: React.FC<WeatherWidgetProps> = ({ location }: WeatherWidget
   }
 
   return (
-      <div className={`bg-opacity-20 backdrop-blur-lg p-8 h-full shadow-2xl rounded xl bg-gradient-to-br ${getBackgroundGradient(weather?.weather[0]?.main)}`}>
+      <div className={`bg-opacity-20 backdrop-blur-lg justify-center items-center h-full ${getBackgroundGradient(weather?.weather[0]?.main)}`}>
 
         {/* Main Weather Display */}
-        <div className="text-center text-white mb-8">
-          <h1 className="text-4xl font-bold mb-2">{weather.name}</h1>
-          <p className="text-lg opacity-80">{weather.sys.country}</p>
-          
-          <div className="flex justify-center my-6">
-            {getWeatherIcon(weather.weather[0]?.main)}
+        <div className="flex flex-row text-center justify-center items-center text-black/60 mb-8">
+        <div className='flex flex-col mt-6 mx-8 items-center'>
+            <div className="flex">
+              {getWeatherIcon(weather.weather[0]?.main)}
+            </div>
+            <p className="text-xl capitalize opacity-90">
+              {weather.weather[0]?.description}
+            </p>
           </div>
-          
-          <div className="text-6xl font-bold mb-2">
-            {Math.round(weather.main.temp)}°C
+
+          <div className='flex flex-col mt-6'>
+            <div className="text-4xl font-bold">
+              {Math.round(weather.main.temp)}°C
+            </div>
+            <p className="text-md opacity-80">
+              Feels like {Math.round(weather.main.feels_like)}°C
+            </p>
           </div>
-          
-          <p className="text-2xl capitalize opacity-90">
-            {weather.weather[0]?.description}
-          </p>
-          
-          <p className="text-lg opacity-80 mt-2">
-            Feels like {Math.round(weather.main.feels_like)}°C
-          </p>
         </div>
       </div>
   );

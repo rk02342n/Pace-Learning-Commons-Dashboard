@@ -6,7 +6,12 @@ import plv from '../images/Pace_PLV.jpg';
 const Home = () => {
     return (
         <div className="h-screen bg-white p-2 md:px-10">
-            <Header />
+            <Header location={'new york'}/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <div className="flex flex-row place-content-center w-full gap-8">
                     <Link to="/nyc" className="flex flex-col justify-center text-center rounded-l-md w-1/2">
                         <div className=" overflow-hidden shadow-lg rounded-l-md">
@@ -26,16 +31,6 @@ const Home = () => {
                     </Link>
                 </div>
         </div>
-
-
-        // <div className="flex flex-row place-content-center h-2/4 w-full">
-        //     <div className="h-full w-1/3 bg-sky-500 flex flex-col justify-center text-center rounded-l-md">
-        //     </div>
-        // <div className="h-full w-1/3 bg-sky-900">
-        //     {/* <YouTubePlayer videoId={youTubeLink} /> */}
-        // </div>
-        // <div className="h-full w-1/3 bg-yellow-400"></div>
-        // </div>
     );
 };
 
